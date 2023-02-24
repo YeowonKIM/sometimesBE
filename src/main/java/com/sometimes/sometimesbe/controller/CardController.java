@@ -8,10 +8,9 @@ import com.sometimes.sometimesbe.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,4 +24,17 @@ public class CardController {
         ResponseEntity<CardResponseDto> card_post =cardService.createCard(requestDto, userDetails.getUser());
         return card_post;
     }
+
+    // 게시글 조회
+    @GetMapping("/cards")
+    public ResponseEntity <List<CardResponseDto>> getCards() {
+        return cardService.getCards();
+    }
+
+    // 게시글 선택 조회
+    @GetMapping("/cards/{id}")
+    public ResponseEntity<CardResponseDto> getCard(@PathVariable Long id) {
+        return cardService.getCard(id);
+    }
+
 }

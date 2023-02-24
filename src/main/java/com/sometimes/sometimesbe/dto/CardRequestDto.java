@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CardRequestDto {
-    private String Content;
+    private String content;
 }

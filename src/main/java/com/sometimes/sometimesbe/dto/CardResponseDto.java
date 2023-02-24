@@ -29,6 +29,12 @@ public class CardResponseDto {
         this.likes = likes;
     }
 
+    public static CardResponseDto from(Card card)
+    {
+        return CardResponseDto.builder()
+                .card(card)
+                .build();
+    }
     public static CardResponseDto from(Card card, int likes)
     {
         return CardResponseDto.builder()

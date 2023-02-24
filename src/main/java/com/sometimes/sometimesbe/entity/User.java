@@ -28,17 +28,19 @@ public class User {
     private UserRoleEnum role;
 
     @Builder
-    private User(String username, String password, UserRoleEnum role) {
+    private User(String username, String password, UserRoleEnum role, String nickname) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.nickname = nickname;
     }
-    public static User of(String username, String password, UserRoleEnum role)
+    public static User of(String username, String password, UserRoleEnum role,String nickname)
     {
         return User.builder()
                 .username(username)
                 .password(password)
                 .role(role)
+                .nickname(nickname)
                 .build();
     }
 

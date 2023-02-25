@@ -59,20 +59,23 @@ public class CardService {
 
     }
 
+    // 카드 삭제
     @Transactional
     public ResponseEntity<MessageResponseDto> deleteCard(Long id, User user) {
+
         Optional<Card> card = cardRepository.findById(id);
 
         UserRoleEnum role = user.getRole();
 
         if(card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
+            cardLikeRepository.deleteByCardId(id);
             cardRepository.deleteById(id);
         } else {
             throw new IllegalArgumentException("삭제할 권한이 없습니다.");
         }
 
         return ResponseEntity.ok()
-                .body(MessageResponseDto.of(HttpStatus.OK, "글 삭제 완료"));
+                .body(MessageResponseDto.of("글 삭제 완료", HttpStatus.OK));
 
     }
 
@@ -105,7 +108,6 @@ public class CardService {
             cardLikeRepository.delete(cardLike.get());
             return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 취소",HttpStatus.OK));
         }
-
 
     }
 

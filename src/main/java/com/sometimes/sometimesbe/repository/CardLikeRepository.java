@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface CardLikeRepository extends JpaRepository<CardLike,Long> {
     Optional<CardLike> findByCardIdAndUserId(Long cardId, Long userId);
     Integer countCardLikeByCard_Id(Long cardId);
-
+    Optional<CardLike> deleteByCardId(Long cardId);
 }

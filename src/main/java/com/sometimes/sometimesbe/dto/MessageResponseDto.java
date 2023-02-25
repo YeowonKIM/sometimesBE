@@ -17,7 +17,7 @@ public class MessageResponseDto {
 
     }
 
-    public static MessageResponseDto of(String msg,HttpStatus status)
+    public static MessageResponseDto of(String msg, HttpStatus status)
     {
         return MessageResponseDto.builder()
                 .msg(msg)

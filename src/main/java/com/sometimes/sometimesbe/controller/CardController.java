@@ -42,6 +42,7 @@ public class CardController {
     public ResponseEntity<MessageResponseDto> deleteCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return cardService.deleteCard(id, userDetails.getUser());
     }
+
     // 카드 좋아요
     @PostMapping("/cards/likes/{id}")
     public ResponseEntity<MessageResponseDto> createLike(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {

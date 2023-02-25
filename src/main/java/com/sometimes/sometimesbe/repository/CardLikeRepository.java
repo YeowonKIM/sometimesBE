@@ -1,8 +1,6 @@
 package com.sometimes.sometimesbe.repository;
 
-import com.sometimes.sometimesbe.entity.Card;
 import com.sometimes.sometimesbe.entity.CardLike;
-import com.sometimes.sometimesbe.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

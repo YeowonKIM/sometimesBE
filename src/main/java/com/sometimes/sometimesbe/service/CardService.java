@@ -10,16 +10,18 @@ import com.sometimes.sometimesbe.entity.UserRoleEnum;
 import com.sometimes.sometimesbe.repository.CardLikeRepository;
 import com.sometimes.sometimesbe.repository.CardRepository;
 
+import com.sometimes.sometimesbe.utils.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.sometimes.sometimesbe.utils.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +53,7 @@ public class CardService {
     public ResponseEntity<CardResponseDto> getCard(Long id) {
         Optional<Card> card = cardRepository.findById(id);
         if (card.isEmpty()) {
-            throw new IllegalArgumentException("해당 카드가 없습니다.");
+            throw new CustomException(NOT_FOUND_CARD);
         }
         return ResponseEntity.ok().body(CardResponseDto.from(card.get(), cardLikeRepository.countCardLikeByCardId(card.get().getId())));
     }
@@ -62,7 +64,7 @@ public class CardService {
 
         Optional<Card> card = cardRepository.findById(id);
         if (card.isEmpty()) {
-            throw new IllegalArgumentException("해당하는 카드가 존재하지 않습니다");
+            throw new CustomException(NOT_FOUND_CARD);
         }
 
         UserRoleEnum role = user.getRole();
@@ -71,7 +73,7 @@ public class CardService {
             cardLikeRepository.deleteByCardId(id);
             cardRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("삭제할 권한이 없습니다.");
+            throw new CustomException(AUTHORIZATION);
         }
 
         return ResponseEntity.ok()
@@ -83,7 +85,7 @@ public class CardService {
     public ResponseEntity<CardResponseDto> updateCard(Long id, CardRequestDto requestDto, User user) {
         Optional<Card> card = cardRepository.findById(id);
         if (card.isEmpty()) {
-            throw new IllegalArgumentException("해당하는 카드가 존재하지 않습니다");
+            throw new CustomException(NOT_FOUND_CARD);
         }
 
         UserRoleEnum role = user.getRole();
@@ -91,7 +93,7 @@ public class CardService {
         if (card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
             card.get().update(requestDto);
         } else {
-            throw new IllegalArgumentException("수정할 권한이 없습니다.");
+            throw new CustomException(AUTHORIZATION);
         }
 
         return ResponseEntity.ok()
@@ -104,14 +106,14 @@ public class CardService {
 
         Optional<Card> card = cardRepository.findById(id);
         if (card.isEmpty()) {
-            throw new IllegalArgumentException("해당 카드가 없습니다.");
+            throw new CustomException(NOT_FOUND_CARD);
         }
 
         Optional<CardLike> cardLike = cardLikeRepository.findByCardIdAndUserId(id, user.getId());
-        if (cardLike.isEmpty()) {  // 좋아요
+        if (cardLike.isEmpty()) {
             cardLikeRepository.saveAndFlush(CardLike.of(card.get(), user));
             return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 추가", HttpStatus.OK));
-        } else {  // 좋아요 취소
+        } else {
             cardLikeRepository.delete(cardLike.get());
             return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 취소", HttpStatus.OK));
         }

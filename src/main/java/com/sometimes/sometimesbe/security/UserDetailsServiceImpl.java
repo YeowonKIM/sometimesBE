@@ -2,6 +2,7 @@ package com.sometimes.sometimesbe.security;
 
 import com.sometimes.sometimesbe.entity.User;
 import com.sometimes.sometimesbe.repository.UserRepository;
+import com.sometimes.sometimesbe.utils.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+                () -> new UsernameNotFoundException(ErrorCode.NOT_FOUND_USER.getMsg()));
         return new UserDetailsImpl(user, user.getUsername());
     }
 }

@@ -10,20 +10,16 @@ public class MessageResponseDto {
     private int statusCode;
 
     @Builder
-    private MessageResponseDto(String msg, int statusCode)
-    {
+    private MessageResponseDto(String msg, int statusCode) {
         this.msg = msg;
         this.statusCode = statusCode;
 
     }
 
-    public static MessageResponseDto of(String msg, HttpStatus status)
-    {
+    public static MessageResponseDto of(String msg, HttpStatus status) {
         return MessageResponseDto.builder()
                 .msg(msg)
                 .statusCode(status.value())
                 .build();
     }
-
-
 }

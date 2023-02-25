@@ -76,4 +76,20 @@ public class CardService {
     }
 
 
+    @Transactional
+    public ResponseEntity<CardResponseDto> updateCard(Long id, CardRequestDto requestDto, User user) {
+        Card card = cardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("findContentThrow : 카드 콘텐트가 존재하지 않습니다.")
+        );
+        //글쓴 유저 아이디와, 실제 로그인 아이디 비교.
+        if(!user.getUsername().equals(card.getUser().getUsername())){
+            return ResponseEntity.badRequest().body(CardResponseDto.from(card));
+        }
+        card.update(requestDto);
+        //성공했을 때.
+        return ResponseEntity.ok(CardResponseDto.from(card));
+    }
+
+
+
 }

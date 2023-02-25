@@ -44,4 +44,11 @@ public class CardController {
         return cardService.createLike(id, userDetails.getUser());
     }
 
+
+    @PutMapping("/cards/{id}")
+    public ResponseEntity<CardResponseDto> updateCard(@PathVariable Long id,@RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ResponseEntity<CardResponseDto> card_update = cardService.updateCard(id, requestDto, userDetails.getUser());
+        return card_update;
+    }
+
 }

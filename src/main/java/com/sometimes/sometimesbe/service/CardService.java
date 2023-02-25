@@ -6,8 +6,10 @@ import com.sometimes.sometimesbe.dto.MessageResponseDto;
 import com.sometimes.sometimesbe.entity.Card;
 import com.sometimes.sometimesbe.entity.CardLike;
 import com.sometimes.sometimesbe.entity.User;
+import com.sometimes.sometimesbe.entity.UserRoleEnum;
 import com.sometimes.sometimesbe.repository.CardLikeRepository;
 import com.sometimes.sometimesbe.repository.CardRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,8 +54,43 @@ public class CardService {
         if (card.isEmpty()) {
             throw new IllegalArgumentException("해당 카드가 없습니다.");
         }
-        return ResponseEntity.ok().body(CardResponseDto.from(card.get(), cardLikeRepository.countCardLikeByCard_Id(card.get().getId())));
+        return ResponseEntity.ok()
+                .body(CardResponseDto.from(card.get()));
 
+    }
+
+    // 카드 삭제
+    @Transactional
+    public ResponseEntity<MessageResponseDto> deleteCard(Long id, User user) {
+
+        Optional<Card> card = cardRepository.findById(id);
+
+        UserRoleEnum role = user.getRole();
+
+        if(card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
+            cardLikeRepository.deleteByCardId(id);
+            cardRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("삭제할 권한이 없습니다.");
+        }
+
+        return ResponseEntity.ok()
+                .body(MessageResponseDto.of("글 삭제 완료", HttpStatus.OK));
+
+    }
+
+    @Transactional
+    public ResponseEntity<CardResponseDto> updateCard(Long id, CardRequestDto requestDto, User user) {
+        Card card = cardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("findContentThrow : 카드 콘텐트가 존재하지 않습니다.")
+        );
+        //글쓴 유저 아이디와, 실제 로그인 아이디 비교.
+        if(!user.getUsername().equals(card.getUser().getUsername())){
+            return ResponseEntity.badRequest().body(CardResponseDto.from(card));
+        }
+        card.update(requestDto);
+        //성공했을 때.
+        return ResponseEntity.ok(CardResponseDto.from(card));
     }
 
     // 카드 좋아요
@@ -72,24 +109,7 @@ public class CardService {
             return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 취소",HttpStatus.OK));
         }
 
-
     }
-
-
-    @Transactional
-    public ResponseEntity<CardResponseDto> updateCard(Long id, CardRequestDto requestDto, User user) {
-        Card card = cardRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("findContentThrow : 카드 콘텐트가 존재하지 않습니다.")
-        );
-        //글쓴 유저 아이디와, 실제 로그인 아이디 비교.
-        if(!user.getUsername().equals(card.getUser().getUsername())){
-            return ResponseEntity.badRequest().body(CardResponseDto.from(card));
-        }
-        card.update(requestDto);
-        //성공했을 때.
-        return ResponseEntity.ok(CardResponseDto.from(card));
-    }
-
 
 
 }

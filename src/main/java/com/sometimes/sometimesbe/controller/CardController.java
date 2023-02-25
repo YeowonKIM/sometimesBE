@@ -3,7 +3,6 @@ package com.sometimes.sometimesbe.controller;
 import com.sometimes.sometimesbe.dto.CardRequestDto;
 import com.sometimes.sometimesbe.dto.CardResponseDto;
 import com.sometimes.sometimesbe.dto.MessageResponseDto;
-import com.sometimes.sometimesbe.entity.User;
 import com.sometimes.sometimesbe.security.UserDetailsImpl;
 import com.sometimes.sometimesbe.service.CardService;
 import lombok.RequiredArgsConstructor;
@@ -38,12 +37,17 @@ public class CardController {
         return cardService.getCard(id);
     }
 
+    // 카드 삭제
+    @DeleteMapping("/cards/{id}")
+    public ResponseEntity<MessageResponseDto> deleteCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return cardService.deleteCard(id, userDetails.getUser());
+    }
+
     // 카드 좋아요
     @PostMapping("/cards/likes/{id}")
     public ResponseEntity<MessageResponseDto> createLike(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return cardService.createLike(id, userDetails.getUser());
     }
-
 
     @PutMapping("/cards/{id}")
     public ResponseEntity<CardResponseDto> updateCard(@PathVariable Long id,@RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {

@@ -15,7 +15,7 @@ public class CrawlingController {
     private final CrawlingService crawlingService;
 
     @GetMapping("/image")
-    public List<String> getImageList() {
+    public List <String> getImageList() {
         return crawlingService.process();
     }
 }

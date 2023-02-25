@@ -20,9 +20,7 @@ public class CardController {
 
     @PostMapping("/cards")
     public ResponseEntity<CardResponseDto> createCard(@RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        //Board Entity에 requestdto 안의 값들을 받아서 createBoard 작업을 한다.
-        ResponseEntity<CardResponseDto> card_post =cardService.createCard(requestDto, userDetails.getUser());
-        return card_post;
+        return cardService.createCard(requestDto, userDetails.getUser());
     }
 
     // 카드 조회
@@ -43,16 +41,17 @@ public class CardController {
         return cardService.deleteCard(id, userDetails.getUser());
     }
 
+    // 카드 수정
+    @PutMapping("/cards/{id}")
+    public ResponseEntity<CardResponseDto> updateCard(@PathVariable Long id, @RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return cardService.updateCard(id, requestDto, userDetails.getUser());
+    }
+
     // 카드 좋아요
-    @PostMapping("/cards/likes/{id}")
+    @PutMapping("/cards/likes/{id}")
     public ResponseEntity<MessageResponseDto> createLike(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return cardService.createLike(id, userDetails.getUser());
     }
 
-    @PutMapping("/cards/{id}")
-    public ResponseEntity<CardResponseDto> updateCard(@PathVariable Long id,@RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ResponseEntity<CardResponseDto> card_update = cardService.updateCard(id, requestDto, userDetails.getUser());
-        return card_update;
-    }
 
 }

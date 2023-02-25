@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Card extends TimeStamped{
+public class Card extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,26 +20,24 @@ public class Card extends TimeStamped{
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID",nullable = false)
+    @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
     @Builder
-    private Card(CardRequestDto cardRequestDto, User user)
-    {
+    private Card(CardRequestDto cardRequestDto, User user) {
         this.content = cardRequestDto.getContent();
         this.user = user;
     }
 
-    public static Card of(CardRequestDto cardRequestDto, User user)
-    {
+    public static Card of(CardRequestDto cardRequestDto, User user) {
         return Card.builder()
                 .cardRequestDto(cardRequestDto)
                 .user(user)
                 .build();
     }
 
-    public void update(CardRequestDto requestDto){
-        this.content=requestDto.getContent();
+    public void update(CardRequestDto requestDto) {
+        this.content = requestDto.getContent();
     }
 
 }

@@ -31,18 +31,17 @@ public class CardService {
     public ResponseEntity<CardResponseDto> createCard(CardRequestDto requestDto, User user) {
         Card card = Card.of(requestDto, user);
         cardRepository.save(card);
-        CardResponseDto cardResponseDto = CardResponseDto.from(card);
-        return ResponseEntity.ok(cardResponseDto);
+        return ResponseEntity.ok(CardResponseDto.from(card));
     }
 
     // 카드 전체 조회
     @Transactional
-    public ResponseEntity <List<CardResponseDto>> getCards() {
+    public ResponseEntity<List<CardResponseDto>> getCards() {
         List<Card> cardList = cardRepository.findAllByOrderByCreatedAtDesc();
         List<CardResponseDto> cardResponseList = new ArrayList<>();
 
         for (Card card : cardList) {
-            cardResponseList.add(CardResponseDto.from(card, cardLikeRepository.countCardLikeByCard_Id(card.getId())));
+            cardResponseList.add(CardResponseDto.from(card, cardLikeRepository.countCardLikeByCardId(card.getId())));
         }
         return ResponseEntity.ok().body(cardResponseList);
     }
@@ -54,9 +53,7 @@ public class CardService {
         if (card.isEmpty()) {
             throw new IllegalArgumentException("해당 카드가 없습니다.");
         }
-        return ResponseEntity.ok()
-                .body(CardResponseDto.from(card.get()));
-
+        return ResponseEntity.ok().body(CardResponseDto.from(card.get(), cardLikeRepository.countCardLikeByCardId(card.get().getId())));
     }
 
     // 카드 삭제
@@ -64,10 +61,13 @@ public class CardService {
     public ResponseEntity<MessageResponseDto> deleteCard(Long id, User user) {
 
         Optional<Card> card = cardRepository.findById(id);
+        if (card.isEmpty()) {
+            throw new IllegalArgumentException("해당하는 카드가 존재하지 않습니다");
+        }
 
         UserRoleEnum role = user.getRole();
 
-        if(card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
+        if (card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
             cardLikeRepository.deleteByCardId(id);
             cardRepository.deleteById(id);
         } else {
@@ -81,32 +81,39 @@ public class CardService {
 
     @Transactional
     public ResponseEntity<CardResponseDto> updateCard(Long id, CardRequestDto requestDto, User user) {
-        Card card = cardRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("findContentThrow : 카드 콘텐트가 존재하지 않습니다.")
-        );
-        //글쓴 유저 아이디와, 실제 로그인 아이디 비교.
-        if(!user.getUsername().equals(card.getUser().getUsername())){
-            return ResponseEntity.badRequest().body(CardResponseDto.from(card));
+        Optional<Card> card = cardRepository.findById(id);
+        if (card.isEmpty()) {
+            throw new IllegalArgumentException("해당하는 카드가 존재하지 않습니다");
         }
-        card.update(requestDto);
-        //성공했을 때.
-        return ResponseEntity.ok(CardResponseDto.from(card));
+
+        UserRoleEnum role = user.getRole();
+
+        if (card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
+            card.get().update(requestDto);
+        } else {
+            throw new IllegalArgumentException("수정할 권한이 없습니다.");
+        }
+
+        return ResponseEntity.ok()
+                .body(CardResponseDto.from(card.get()));
     }
 
     // 카드 좋아요
     @Transactional
     public ResponseEntity<MessageResponseDto> createLike(Long id, User user) {
-        Card card = cardRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 카드가 없습니다.")
-        );
+
+        Optional<Card> card = cardRepository.findById(id);
+        if (card.isEmpty()) {
+            throw new IllegalArgumentException("해당 카드가 없습니다.");
+        }
 
         Optional<CardLike> cardLike = cardLikeRepository.findByCardIdAndUserId(id, user.getId());
         if (cardLike.isEmpty()) {  // 좋아요
-            cardLikeRepository.saveAndFlush(CardLike.of(card, user));
+            cardLikeRepository.saveAndFlush(CardLike.of(card.get(), user));
             return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 추가", HttpStatus.OK));
         } else {  // 좋아요 취소
             cardLikeRepository.delete(cardLike.get());
-            return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 취소",HttpStatus.OK));
+            return ResponseEntity.ok().body(MessageResponseDto.of("좋아요 취소", HttpStatus.OK));
         }
 
     }

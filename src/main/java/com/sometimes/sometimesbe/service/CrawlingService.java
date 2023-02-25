@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CrawlingService {
-    private static final String url = "https://www.google.co.kr/search?q=%EC%9E%90%EC%97%B0%EC%9D%B4%EB%AF%B8%EC%A7%80&tbm=isch&chips=q:%EC%9E%90%EC%97%B0+%EC%9D%B4%EB%AF%B8%EC%A7%80,online_chips:%EC%9E%90%EC%97%B0%EA%B2%BD%EA%B4%80:zo_35zrTL54%3D&hl=en&sa=X&ved=2ahUKEwiTmfnYp7D9AhX_TPUHHWFIB_MQ4lYoA3oECAEQKw&biw=1905&bih=895";
+    private static final String url = "https://www.google.com/search?q=%EC%98%9B%EB%82%A0+%EA%B0%90%EC%84%B1%EC%82%AC%EC%A7%84&sxsrf=AJOqlzWmk53ZZCWS93xfmXsSW4up-FrcpQ:1677330096012&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiwpKzE3bD9AhX5m1YBHY0JAwQQ_AUoAXoECAEQAw&biw=1079&bih=883&dpr=2";
 
     public List<String> process() {
         Connection conn = Jsoup.connect(url);
@@ -34,11 +34,10 @@ public class CrawlingService {
             if (!dataSrc.isEmpty()) {
                 imageUrls.add(dataSrc);
             }
-            if (imageUrls.size() >= 20) {
+            if (imageUrls.size() >= 40) {
                 break;
             }
         }
-
         return imageUrls;
     }
 }

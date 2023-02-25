@@ -38,4 +38,8 @@ public class Card extends TimeStamped{
                 .build();
     }
 
+    public void update(CardRequestDto requestDto){
+        this.content=requestDto.getContent();
+    }
+
 }

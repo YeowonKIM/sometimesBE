@@ -17,11 +17,11 @@ public class MessageResponseDto {
 
     }
 
-    public static MessageResponseDto of(HttpStatus status, String msg)
+    public static MessageResponseDto of(String msg,HttpStatus status)
     {
         return MessageResponseDto.builder()
-                .statusCode(status.value())
                 .msg(msg)
+                .statusCode(status.value())
                 .build();
     }
 

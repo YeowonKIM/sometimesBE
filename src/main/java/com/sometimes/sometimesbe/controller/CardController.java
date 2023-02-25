@@ -25,13 +25,13 @@ public class CardController {
         return card_post;
     }
 
-    // 게시글 조회
+    // 카드 조회
     @GetMapping("/cards")
     public ResponseEntity <List<CardResponseDto>> getCards() {
         return cardService.getCards();
     }
 
-    // 게시글 선택 조회
+    // 카드 조회
     @GetMapping("/cards/{id}")
     public ResponseEntity<CardResponseDto> getCard(@PathVariable Long id) {
         return cardService.getCard(id);
@@ -42,4 +42,16 @@ public class CardController {
     public ResponseEntity<MessageResponseDto> deleteCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return cardService.deleteCard(id, userDetails.getUser());
     }
+    // 카드 좋아요
+    @PostMapping("/cards/likes/{id}")
+    public ResponseEntity<MessageResponseDto> createLike(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return cardService.createLike(id, userDetails.getUser());
+    }
+
+    @PutMapping("/cards/{id}")
+    public ResponseEntity<CardResponseDto> updateCard(@PathVariable Long id,@RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ResponseEntity<CardResponseDto> card_update = cardService.updateCard(id, requestDto, userDetails.getUser());
+        return card_update;
+    }
+
 }

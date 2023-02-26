@@ -88,6 +88,10 @@
 
 
 ## 🏗️ STEP 3 :   API Specification
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcqGctI%2Fbtr0KRV9lbR%2Fv73RF8TvSNo2JsANPSAkJ0%2Fimg.png"  width="800" height="400">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbCOAgh%2Fbtr0RPpVDf5%2FM7ss6l02aiuVm7k6uYTS10%2Fimg.png"  width="800" height="600">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbHBwgA%2Fbtr0GbhiFKu%2FFKbEbGhKT2jjgBZRCkOg4K%2Fimg.png"  width="800" height="600">
+
 
 
 <br/><br/>

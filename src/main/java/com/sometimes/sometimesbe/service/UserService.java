@@ -49,6 +49,7 @@ public class UserService {
         headers.set(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.get().getUsername(), user.get().getRole()));
 
         return ResponseEntity.ok()
+                .headers(headers)
                 .body(MessageResponseDto.of("로그인 성공", HttpStatus.OK));
     }
 

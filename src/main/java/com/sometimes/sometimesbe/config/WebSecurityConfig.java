@@ -17,6 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @RequiredArgsConstructor
@@ -40,6 +45,28 @@ public class WebSecurityConfig{
     }
 
     @Bean
+    public CorsConfigurationSource corsConfigurationSource(){
+
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.addAllowedOrigin("http://localhost:3000");
+
+        config.addAllowedMethod(JwtUtil.AUTHORIZATION_HEADER);
+
+        config.addAllowedMethod("*");
+
+        config.addAllowedHeader("*");
+
+        config.setAllowCredentials(true);
+
+        config.validateAllowCredentials();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", config);
+
+        return source;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
 
@@ -52,8 +79,9 @@ public class WebSecurityConfig{
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-
         httpSecurity.formLogin().permitAll();
+
+        httpSecurity.cors();
 
         return httpSecurity.build();
     }

@@ -1,0 +1,32 @@
+#spring:
+#  h2:
+#    console:
+#      enabled: 'true'
+#  datasource:
+#    username: sa
+#    url: jdbc:h2:mem:db;MODE=MYSQL;
+#    password: ''
+#  thymeleaf:
+#    cache: 'false'
+#  jpa:
+#    properties:
+#      hibernate:
+#        format_sql: 'true'
+#        show_sql: 'true'
+#jwt:
+#  secret:
+#    key: 7ZWt7ZW0OTntmZTsnbTtjIXtlZzqta3snYTrhIjrqLjshLjqs4TroZzrgpjslYTqsIDsnpDtm4zrpa3tlZzqsJzrsJzsnpDrpbzrp4zrk6TslrTqsIDsnpA=
+spring:
+  profiles:
+    active:
+      - dev
+    group:
+      local:
+        - db-local
+        - common-local
+      dev:
+        - db-dev
+        - common-dev
+    include:
+      - db
+      - common

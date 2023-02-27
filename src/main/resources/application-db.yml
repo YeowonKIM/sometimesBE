@@ -56,7 +56,7 @@ spring:
   datasource:
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://somtimes-database.c0cdx7mlauup.ap-northeast-2.rds.amazonaws.com:3306/SOMETIMES?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+      jdbc-url: // URL
       username: admin
       password: 12345678
       max-lifetime: 60000

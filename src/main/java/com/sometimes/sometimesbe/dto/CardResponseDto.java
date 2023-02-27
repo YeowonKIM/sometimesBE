@@ -19,8 +19,7 @@ public class CardResponseDto {
     private int likes;
 
     @Builder
-    private CardResponseDto(Card card, int likes)
-    {
+    private CardResponseDto(Card card, int likes) {
         this.id = card.getId();
         this.content = card.getContent();
         this.nickname = card.getUser().getNickname();
@@ -29,14 +28,13 @@ public class CardResponseDto {
         this.likes = likes;
     }
 
-    public static CardResponseDto from(Card card)
-    {
+    public static CardResponseDto from(Card card) {
         return CardResponseDto.builder()
                 .card(card)
                 .build();
     }
-    public static CardResponseDto from(Card card, int likes)
-    {
+
+    public static CardResponseDto from(Card card, int likes) {
         return CardResponseDto.builder()
                 .card(card)
                 .likes(likes)

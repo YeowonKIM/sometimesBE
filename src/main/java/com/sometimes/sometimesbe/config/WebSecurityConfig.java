@@ -2,6 +2,7 @@ package com.sometimes.sometimesbe.config;
 
 import com.sometimes.sometimesbe.jwt.JwtAuthFilter;
 import com.sometimes.sometimesbe.jwt.JwtUtil;
+import com.sometimes.sometimesbe.security.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +50,7 @@ public class WebSecurityConfig{
                 .antMatchers("/api/image").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/cards/**").permitAll()
                 .anyRequest().authenticated()
+                .and().exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         httpSecurity.formLogin().permitAll();

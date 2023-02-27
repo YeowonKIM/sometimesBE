@@ -23,13 +23,13 @@ public class CardController {
         return cardService.createCard(requestDto, userDetails.getUser());
     }
 
-    // 카드 조회
+    // 카드 전체 조회
     @GetMapping("/cards")
     public ResponseEntity <List<CardResponseDto>> getCards() {
         return cardService.getCards();
     }
 
-    // 카드 조회
+    // 카드 선택 조회
     @GetMapping("/cards/{id}")
     public ResponseEntity<CardResponseDto> getCard(@PathVariable Long id) {
         return cardService.getCard(id);

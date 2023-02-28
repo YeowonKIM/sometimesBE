@@ -51,15 +51,14 @@ public class WebSecurityConfig{
 
         config.addAllowedOrigin("http://localhost:3000");
 
-        config.addAllowedMethod(JwtUtil.AUTHORIZATION_HEADER);
-
         config.addAllowedMethod("*");
 
-        config.addAllowedHeader("*");
+        config.addAllowedHeader(JwtUtil.AUTHORIZATION_HEADER);
 
         config.setAllowCredentials(true);
 
         config.validateAllowCredentials();
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", config);
 

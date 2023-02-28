@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.sometimes.sometimesbe.utils.ErrorCode.*;
@@ -59,9 +60,14 @@ public class UserService {
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
         String nickname = signupRequestDto.getNickname();
 
-        Optional<User> found = userRepository.findByUsername(username);
-        if (found.isPresent()) {
+        Optional<User> foundUsername = userRepository.findByUsername(username);
+        if (foundUsername.isPresent()) {
             throw new CustomException(DUPLICATE_USER);
+        }
+
+        Optional<User> foundNickname = userRepository.findByNickname(nickname);
+        if(foundNickname.isPresent()) {
+            throw new CustomException(DUPLICATE_NICKNAME);
         }
 
         UserRoleEnum role = UserRoleEnum.USER;

@@ -40,7 +40,7 @@ public class WebSecurityConfig{
     public WebSecurityCustomizer webSecurityCustomizer() {
 
         return (web) -> web.ignoring()
-                .requestMatchers(PathRequest.toH2Console())
+//                .requestMatchers(PathRequest.toH2Console())
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
@@ -49,25 +49,29 @@ public class WebSecurityConfig{
 
         CorsConfiguration config = new CorsConfiguration();
 
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOriginPattern("*");
+
+        config.addAllowedHeader("*");
 
         config.addAllowedMethod("*");
 
-        config.addAllowedHeader(JwtUtil.AUTHORIZATION_HEADER);
+        config.addExposedHeader("Authorization");
 
         config.setAllowCredentials(true);
 
         config.validateAllowCredentials();
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config);
 
         return source;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.cors();
         httpSecurity.csrf().disable();
+        httpSecurity.formLogin().disable();
 
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -78,9 +82,6 @@ public class WebSecurityConfig{
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.formLogin().permitAll();
-
-        httpSecurity.cors();
 
         return httpSecurity.build();
     }

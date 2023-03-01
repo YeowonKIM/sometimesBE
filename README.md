@@ -84,7 +84,8 @@
   
   
   ## 🧱 STEP 2 :  ERD
-![Sometimes (2)](https://user-images.githubusercontent.com/122272525/221391247-973cf25c-17e1-47f6-aba9-d6f0dd45d3ba.png)
+  ![Sometimes (1)](https://user-images.githubusercontent.com/122272525/222137280-9d26218f-0934-4b52-81ee-9435a5f8ef69.png)
+
 
 <br/><br/>
 

@@ -18,6 +18,8 @@ public enum ErrorCode {
     // ======== cards ======== //
     NOT_FOUND_CARD(HttpStatus.BAD_REQUEST, "카드을 찾을 수 없습니다."),
     INVALID_ADMIN_TOKEN(HttpStatus.BAD_REQUEST, "유효한 관리자 토큰이 아닙니다."),
+    NOT_FOUND_IMAGE(HttpStatus.BAD_REQUEST, "이미지를 찾을 수 없습니다."),
+
 
     // ======== Token ======== //
     NOT_FOUND_TOKEN(HttpStatus.BAD_REQUEST, "토큰을 찾을 수 없습니다."),

@@ -1,16 +1,16 @@
 package com.sometimes.sometimesbe.service;
 
+import com.sometimes.sometimesbe.controller.CrawlingController;
 import com.sometimes.sometimesbe.dto.CardRequestDto;
 import com.sometimes.sometimesbe.dto.CardResponseDto;
 import com.sometimes.sometimesbe.dto.MessageResponseDto;
-import com.sometimes.sometimesbe.entity.Card;
-import com.sometimes.sometimesbe.entity.CardLike;
-import com.sometimes.sometimesbe.entity.User;
-import com.sometimes.sometimesbe.entity.UserRoleEnum;
+import com.sometimes.sometimesbe.entity.*;
 import com.sometimes.sometimesbe.repository.CardLikeRepository;
 import com.sometimes.sometimesbe.repository.CardRepository;
 
+import com.sometimes.sometimesbe.repository.ImageRepository;
 import com.sometimes.sometimesbe.utils.CustomException;
+import com.sometimes.sometimesbe.utils.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.DoubleToLongFunction;
 
 import static com.sometimes.sometimesbe.utils.ErrorCode.*;
 
@@ -28,11 +29,17 @@ import static com.sometimes.sometimesbe.utils.ErrorCode.*;
 public class CardService {
     private final CardRepository cardRepository;
     private final CardLikeRepository cardLikeRepository;
+    private final ImageRepository imageRepository;
 
+    // 카드 생성
     @Transactional
     public ResponseEntity<CardResponseDto> createCard(CardRequestDto requestDto, User user) {
-        Card card = Card.of(requestDto, user);
-        cardRepository.save(card);
+        Optional<Image> image = imageRepository.findById((long) (int) (Math.random() * 39 + 1));
+        if (image.isEmpty()) {
+            throw new CustomException(NOT_FOUND_IMAGE);
+        }
+        Card card = Card.of(requestDto, user, image.get());
+        cardRepository.saveAndFlush(card);
         return ResponseEntity.ok(CardResponseDto.from(card));
     }
 
@@ -69,8 +76,11 @@ public class CardService {
 
         UserRoleEnum role = user.getRole();
 
+
+
         if (card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
             cardLikeRepository.deleteByCardId(id);
+            imageRepository.deleteById(card.get().getId());
             cardRepository.deleteById(id);
         } else {
             throw new CustomException(AUTHORIZATION);

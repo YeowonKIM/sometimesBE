@@ -5,6 +5,7 @@ import com.sometimes.sometimesbe.dto.CardResponseDto;
 import com.sometimes.sometimesbe.dto.MessageResponseDto;
 import com.sometimes.sometimesbe.security.UserDetailsImpl;
 import com.sometimes.sometimesbe.service.CardService;
+import com.sometimes.sometimesbe.service.CrawlingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,8 +19,10 @@ import java.util.List;
 public class CardController {
     private final CardService cardService;
 
+    // 카드 생성
     @PostMapping("/cards")
     public ResponseEntity<CardResponseDto> createCard(@RequestBody CardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         return cardService.createCard(requestDto, userDetails.getUser());
     }
 

@@ -51,7 +51,7 @@ public class UserService {
 
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(MessageResponseDto.of("로그인 성공", HttpStatus.OK));
+                .body(MessageResponseDto.of("로그인 성공", HttpStatus.OK, user.get().getNickname()));
     }
 
     public ResponseEntity<MessageResponseDto> signup(SignupRequestDto signupRequestDto) {

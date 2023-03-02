@@ -10,7 +10,6 @@ import com.sometimes.sometimesbe.repository.CardRepository;
 
 import com.sometimes.sometimesbe.repository.ImageRepository;
 import com.sometimes.sometimesbe.utils.CustomException;
-import com.sometimes.sometimesbe.utils.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.DoubleToLongFunction;
 
 import static com.sometimes.sometimesbe.utils.ErrorCode.*;
 
@@ -75,12 +73,8 @@ public class CardService {
         }
 
         UserRoleEnum role = user.getRole();
-
-
-
         if (card.get().getUser().getId().equals(user.getId()) || role == UserRoleEnum.ADMIN) {
             cardLikeRepository.deleteByCardId(id);
-            imageRepository.deleteById(card.get().getId());
             cardRepository.deleteById(id);
         } else {
             throw new CustomException(AUTHORIZATION);

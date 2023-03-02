@@ -122,19 +122,26 @@
 | --- | --- |
 | 카드 삭제 부분, 글쓴이의 아이디와 실제 유저 아이디 비교 | `equals`  `==` |
 | 로그인 시 토큰 발급 안되는 증상 발생 | HTTP Header 부분이 제대로 return이 안 되어 있었음. |
-| 좋아요 갯수 → 많아졌을 때 | scheduler 로 갱신하는 방법을 찾아보기. → 동시성 |
-| AccessToken이 탈취되었을때의 문제점 및 대처 | refreshToken. <br> [https://hudi.blog/refresh-token/](https://hudi.blog/refresh-token/) <br> [https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/](https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/) <br> [https://velog.io/@jkijki12/Jwt-Refresh-Token-적용기](https://velog.io/@jkijki12/Jwt-Refresh-Token-%EC%A0%81%EC%9A%A9%EA%B8%B0) |
 | 중복된 이미지를 사용하는 경우, 혹은 삭제된 아이디의 이미지를 삭제하려는 경우 문제됨. | Card를 삭제할 경우, LikeRepository에서 이미지가 삭제 되는 것 수정. <br> ➡️ oneToOne이기 때문에 이미지를 DB에서 삭제하지 않는 방향으로 수정 |
 | IntelliJ MySQL 연결 | Host 부분 URL, Database 부분 이름 |
-| Optional 잘 쓰는 법. | [https://mangkyu.tistory.com/70](https://mangkyu.tistory.com/70) <br> [https://hbase.tistory.com/212](https://hbase.tistory.com/212) <br> [https://coding-factory.tistory.com/547](https://coding-factory.tistory.com/547) |
-| content (text 와 blob 의 차이점.) // 만약 이모지도 넣고싶다면? (이모지가 얼마나 차지를 하냐) |  |
-| `httpSecurity.csrf().disable();` |  |
-| `@AuthenticationPrincipal UserDetailsImpl userDetails` |  |
 
 
 <br/><br/>
 
-## 📌 STEP 7 : 팀원 정보 및 팀 노션
+
+  ## 📌 STEP 7 : 개선을 위한 고려사항
+  | 개선 가능한 부분 | 의논한 개선 방안 |
+  | --- | --- |
+  | 좋아요 갯수 → 많아졌을 때 | scheduler 로 갱신하는 방법을 찾아보기. → 동시성 |
+  | AccessToken이 탈취되었을때의 문제점 및 대처 | refreshToken. <br> [https://hudi.blog/refresh-token/](https://hudi.blog/refresh-token/) <br> [https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/](https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/) <br> [https://velog.io/@jkijki12/Jwt-Refresh-Token-적용기](https://velog.io/@jkijki12/Jwt-Refresh-Token-%EC%A0%81%EC%9A%A9%EA%B8%B0) |
+  | Optional 잘 쓰는 법. | [https://mangkyu.tistory.com/70](https://mangkyu.tistory.com/70) <br> [https://hbase.tistory.com/212](https://hbase.tistory.com/212) <br> [https://coding-factory.tistory.com/547](https://coding-factory.tistory.com/547) |
+| content (text 와 blob 의 차이점.) // 만약 이모지도 넣고싶다면? (이모지가 얼마나 차지를 하냐) |  |
+| `httpSecurity.csrf().disable();` |  |
+| `@AuthenticationPrincipal UserDetailsImpl userDetails` |  |
+
+<br/><br/>
+
+## 📌 STEP 8 : 팀원 정보 및 팀 노션
 
 | 이름 | 깃허브 주소 |
 | --- | --- |

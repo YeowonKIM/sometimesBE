@@ -13,6 +13,9 @@
 #### 다른사람들의 글들이 궁금하다면?
    - 다른사람들의 글을 읽어보고 좋아요를 눌러보아요!
 
+<br/><br/>
+
+
 ##  🛠️ STEP2. 프로젝트 기능 명세서
 
  #### 1. 회원 가입 API
@@ -94,9 +97,10 @@
 
 
 ## 🏗️ STEP 4 :   API Specification
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcqGctI%2Fbtr0KRV9lbR%2Fv73RF8TvSNo2JsANPSAkJ0%2Fimg.png"  width="900" height="400">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbCOAgh%2Fbtr0RPpVDf5%2FM7ss6l02aiuVm7k6uYTS10%2Fimg.png"  width="950" height="670">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbHBwgA%2Fbtr0GbhiFKu%2FFKbEbGhKT2jjgBZRCkOg4K%2Fimg.png"  width="950" height="700">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FLKawc%2Fbtr1lxcsBQU%2FRkeYSIHkLch1kyUyXctFyk%2Fimg.png"  width="950" height="430">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FxDhK0%2Fbtr1f1E8jQI%2FSymF41H6hJA4inufPBQ9iK%2Fimg.png"  width="980" height=750">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FrDpL7%2Fbtr1lxcupSW%2FubJJdk4q2ezejrUqi8x1k1%2Fimg.png"  width="950" height="700">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FYpnvi%2Fbtr1lA1waPK%2F2IXgWoS14n7cdsPlUklFAK%2Fimg.png"  width="900" height="200">
 
 
 
@@ -134,9 +138,9 @@
 
 | 이름 | 깃허브 주소 |
 | --- | --- |
-| 이승렬 | [https://github.com/username](https://github.com/username) |
-| 김여원 | [https://github.com/username](https://github.com/username) |
-| 함동진 | [https://github.com/username](https://github.com/username) |
-| 황원준 | [https://github.com/username](https://github.com/username) |
+| 이승렬 | https://github.com/LEESEUNGRYEOL |
+| 김여원 | https://github.com/YeowonKIM |
+| 함동진 | https://github.com/eastjin |
+| 황원준 | https://github.com/1juuun |
 
 #### TEAM NOTION : https://expensive-butterfly-598.notion.site/1-SA-3b52011bd6424c288893bdda6d543280

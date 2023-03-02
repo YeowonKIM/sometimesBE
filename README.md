@@ -132,12 +132,32 @@
   ## 📌 STEP 7 : 개선을 위한 고려사항
   | 개선 가능한 부분 | 의논한 개선 방안 |
   | --- | --- |
-  | 좋아요 갯수 → 많아졌을 때 | scheduler 로 갱신하는 방법을 찾아보기. → 동시성 |
-  | AccessToken이 탈취되었을때의 문제점 및 대처 | refreshToken. <br> [https://hudi.blog/refresh-token/](https://hudi.blog/refresh-token/) <br> [https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/](https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/) <br> [https://velog.io/@jkijki12/Jwt-Refresh-Token-적용기](https://velog.io/@jkijki12/Jwt-Refresh-Token-%EC%A0%81%EC%9A%A9%EA%B8%B0) |
+  | 좋아요 갯수 → 많아졌을 때 | scheduler 로 갱신하는 방법 → 동시성 |
+  | AccessToken이 탈취되었을때의 문제점 및 대처 | refreshToken을 사용하여 개선 가능. 추가로 accessToken과 refreshToken의 시간 설정과 보안도 고려 가능 <br> [https://hudi.blog/refresh-token/](https://hudi.blog/refresh-token/) <br> [https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/](https://tecoble.techcourse.co.kr/post/2021-10-20-refresh-token/) <br> [https://velog.io/@jkijki12/Jwt-Refresh-Token-적용기](https://velog.io/@jkijki12/Jwt-Refresh-Token-%EC%A0%81%EC%9A%A9%EA%B8%B0) |
   | Optional 잘 쓰는 법. | [https://mangkyu.tistory.com/70](https://mangkyu.tistory.com/70) <br> [https://hbase.tistory.com/212](https://hbase.tistory.com/212) <br> [https://coding-factory.tistory.com/547](https://coding-factory.tistory.com/547) |
-| content (text 와 blob 의 차이점.) // 만약 이모지도 넣고싶다면? (이모지가 얼마나 차지를 하냐) |  |
-| `httpSecurity.csrf().disable();` |  |
-| `@AuthenticationPrincipal UserDetailsImpl userDetails` |  |
+| content (text, blob 등의 자료형과 비교) | content는 주로 짧은 글에 쓰이고, 프로젝트 취지에 잘 맞음.<br/> 만약 글자 수를 늘리고 싶다면 text나 Lob 타입을 고려할 수 있고,현재 상황에는 text가 더 적절함. <br/>https://eastjin.tistory.com/61 |
+<br/>
+
+
+## 고려해야 될 사항
+
+- **요구사항 분석**: 사용자의 요구사항을 정확히 파악하고 이를 바탕으로 기능 명세서를 작성해야 한다.
+- **보안**: 많은 개인정보와 민감한 정보가 포함된 경우, 보안에 대한 고민이 필요하다. (Spring Security 도입)
+    - 인증 방식, 인증 에러 등을 고려한다. Role 타입의 인증을 구현한다.
+    - CSRF의 뜻을 알고 적용 방법 확인한다.
+- **버전 관리 (Tool : GitHub)**
+    - 브랜치 규칙 칙 등 정하기 : 브랜치 전략은 여러 개발자들이 동시에 작업할 때 충돌을 방지하고, 코드를 안정적으로 유지하기 위해 중요합니다. 프로젝트 특성에 맞는 브랜치 전략을 정의하여 개발 프로세스를 체계적으로 관리해야 한다.
+    - 커밋 메시지 작성 규칙 정의: 버전 관리 시스템을 사용할 때는 커밋 메시지를 작성해야 합니다. 이 때, 어떤 수정 사항이 있는지 명확하게 작성해야 한다.
+- **확장성**: 시스템이 확장 가능한 구조로 설계되어야 한다.
+- **사용성**: 사용자가 쉽게 이용할 수 있도록 UI/UX를 고려해야 한다.
+- **성능** : 빠른 처리속도와 안정적인 서비스를 제공하기 위한 최적화가 필요하다.
+<br/>
+
+## 보완해야 할 점
+
+- 유지보수성: 코드가 복잡하고 어렵게 작성되어 있으면 유지보수가 어려워져서 가독성과 모듈화를 고려한 코드 작성이 필요하다.
+- 추가 기능 구현 : 회원 탈퇴, 댓글 등.
+
 
 <br/><br/>
 

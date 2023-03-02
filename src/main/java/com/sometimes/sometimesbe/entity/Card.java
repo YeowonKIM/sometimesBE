@@ -5,7 +5,6 @@ import com.sometimes.sometimesbe.dto.CardRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 
@@ -25,11 +24,11 @@ public class Card extends TimeStamped {
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "IMAGE_ID",nullable = false)
+    @JoinColumn(name = "IMAGE_ID", nullable = false)
     private Image image;
 
     @Builder
-    private Card(CardRequestDto cardRequestDto, User user,Image image) {
+    private Card(CardRequestDto cardRequestDto, User user, Image image) {
         this.content = cardRequestDto.getContent();
         this.user = user;
         this.image = image;
@@ -42,7 +41,7 @@ public class Card extends TimeStamped {
                 .build();
     }
 
-    public static Card of(CardRequestDto cardRequestDto, User user,Image image) {
+    public static Card of(CardRequestDto cardRequestDto, User user, Image image) {
         return Card.builder()
                 .cardRequestDto(cardRequestDto)
                 .user(user)

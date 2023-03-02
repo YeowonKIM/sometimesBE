@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.sometimes.sometimesbe.utils.ErrorCode.*;
@@ -66,7 +65,7 @@ public class UserService {
         }
 
         Optional<User> foundNickname = userRepository.findByNickname(nickname);
-        if(foundNickname.isPresent()) {
+        if (foundNickname.isPresent()) {
             throw new CustomException(DUPLICATE_NICKNAME);
         }
 
@@ -84,4 +83,5 @@ public class UserService {
         return ResponseEntity.ok()
                 .body(MessageResponseDto.of("회원가입 완료", HttpStatus.OK));
     }
+
 }

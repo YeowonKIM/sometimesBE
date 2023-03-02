@@ -20,7 +20,7 @@ public class SignupRequestDto {
     private String password;
 
     @NotNull(message = "닉네임은 필수 값입니다.")
-    @Size(min = 2 ,max = 10, message = "닉네임은 2-10자 이내 입니다.")
+    @Size(min = 2, max = 10, message = "닉네임은 2-10자 이내 입니다.")
     private String nickname;
     private boolean admin = false;
     private String adminToken = "";

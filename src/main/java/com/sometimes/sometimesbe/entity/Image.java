@@ -1,7 +1,6 @@
 package com.sometimes.sometimesbe.entity;
 
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

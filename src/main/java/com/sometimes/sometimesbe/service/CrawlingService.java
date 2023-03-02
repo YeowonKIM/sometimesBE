@@ -23,10 +23,10 @@ public class CrawlingService {
     private final ImageRepository imageRepository;
 
     @Transactional
-    public ResponseEntity <List<String>> createImage(){
-        List <String> imageList = createImageUrl();
+    public ResponseEntity<List<String>> createImage() {
+        List<String> imageList = createImageUrl();
         Image image;
-        for(String url: imageList){
+        for (String url : imageList) {
             imageRepository.save(new Image(url));
         }
         return ResponseEntity.ok()
@@ -54,7 +54,7 @@ public class CrawlingService {
                 break;
             }
         }
-        // 리스트중에서 하나를 선택해서 그것을 스트링 값으로 반환.
+
         return imageUrls;
     }
 }

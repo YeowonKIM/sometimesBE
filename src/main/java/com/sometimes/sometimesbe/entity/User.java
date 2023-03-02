@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity(name = "users")
 @Getter
@@ -34,8 +33,8 @@ public class User {
         this.role = role;
         this.nickname = nickname;
     }
-    public static User of(String username, String password, UserRoleEnum role,String nickname)
-    {
+
+    public static User of(String username, String password, UserRoleEnum role, String nickname) {
         return User.builder()
                 .username(username)
                 .password(password)

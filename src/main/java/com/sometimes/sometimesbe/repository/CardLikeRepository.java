@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface CardLikeRepository extends JpaRepository<CardLike,Long> {
+public interface CardLikeRepository extends JpaRepository<CardLike, Long> {
     Optional<CardLike> findByCardIdAndUserId(Long cardId, Long userId);
+
     Integer countCardLikeByCardId(Long cardId);
+
     void deleteByCardId(Long cardId);
 }

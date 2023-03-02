@@ -27,7 +27,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class WebSecurityConfig{
+public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
 
@@ -45,7 +45,7 @@ public class WebSecurityConfig{
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(){
+    public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
 
@@ -78,7 +78,7 @@ public class WebSecurityConfig{
         httpSecurity.authorizeRequests().antMatchers("/api/signup").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/image").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/cards/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/cards/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);

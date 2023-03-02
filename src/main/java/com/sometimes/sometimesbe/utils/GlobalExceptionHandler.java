@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         if (bindingResult.hasErrors()) {
             message = bindingResult.getAllErrors().get(0).getDefaultMessage();
         }
-        return MessageResponseDto.of(message,HttpStatus.BAD_REQUEST);
+        return MessageResponseDto.of(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {CustomException.class})

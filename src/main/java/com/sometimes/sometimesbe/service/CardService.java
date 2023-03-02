@@ -1,6 +1,5 @@
 package com.sometimes.sometimesbe.service;
 
-import com.sometimes.sometimesbe.controller.CrawlingController;
 import com.sometimes.sometimesbe.dto.CardRequestDto;
 import com.sometimes.sometimesbe.dto.CardResponseDto;
 import com.sometimes.sometimesbe.dto.MessageResponseDto;
@@ -29,7 +28,6 @@ public class CardService {
     private final CardLikeRepository cardLikeRepository;
     private final ImageRepository imageRepository;
 
-    // 카드 생성
     @Transactional
     public ResponseEntity<CardResponseDto> createCard(CardRequestDto requestDto, User user) {
         Optional<Image> image = imageRepository.findById((long) (int) (Math.random() * 39 + 1));
@@ -41,7 +39,6 @@ public class CardService {
         return ResponseEntity.ok(CardResponseDto.from(card));
     }
 
-    // 카드 전체 조회
     @Transactional
     public ResponseEntity<List<CardResponseDto>> getCards() {
         List<Card> cardList = cardRepository.findAllByOrderByCreatedAtDesc();
@@ -53,7 +50,6 @@ public class CardService {
         return ResponseEntity.ok().body(cardResponseList);
     }
 
-    // 카드 선택 조회
     @Transactional
     public ResponseEntity<CardResponseDto> getCard(Long id) {
         Optional<Card> card = cardRepository.findById(id);
@@ -63,7 +59,6 @@ public class CardService {
         return ResponseEntity.ok().body(CardResponseDto.from(card.get(), cardLikeRepository.countCardLikeByCardId(card.get().getId())));
     }
 
-    // 카드 삭제
     @Transactional
     public ResponseEntity<MessageResponseDto> deleteCard(Long id, User user) {
 
@@ -104,7 +99,6 @@ public class CardService {
                 .body(CardResponseDto.from(card.get()));
     }
 
-    // 카드 좋아요
     @Transactional
     public ResponseEntity<MessageResponseDto> createLike(Long id, User user) {
 
@@ -123,6 +117,5 @@ public class CardService {
         }
 
     }
-
 
 }
